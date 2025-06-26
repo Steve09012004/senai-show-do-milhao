@@ -1,0 +1,124 @@
+.page {
+  --gray-rgb: 0, 0, 0;
+  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
+  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
+
+  --button-primary-hover: #383838;
+  --button-secondary-hover: #f2f2f2;
+
+  display: grid;
+  grid-template-rows: 20px 1fr 20px;
+  align-items: center;
+  justify-items: center;
+  min-height: 100svh;
+  padding: 80px;
+  gap: 64px;
+  font-family: var(--font-geist-sans);
+}
+
+@media (prefers-color-scheme: dark) {
+  .page {
+    --gray-rgb: 255, 255, 255;
+    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
+    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
+
+    --button-primary-hover: #ccc;
+    --button-secondary-hover: #1a1a1a;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  grid-row-start: 2;
+
+  && .boxLeft {
+    background-color: rgb(40, 54, 40);
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    z-index: 5;
+
+    img {
+      width: 150px;
+      z-index: 1;
+      position: absolute;
+
+    }
+
+    .pergunta {
+      background: rgb(13, 206, 13);
+      height: 100px;
+      width: 700px;
+      align-content: center;
+      justify-items: center;
+      border-radius: 0 0 35px 0;
+      position: absolute;
+      top: 90px;
+    
+
+      && p {
+        color: white;
+        font-size: 1.5em;
+        text-align: center;
+      }
+    }
+    }
+
+    
+
+  && .boxRight {
+    background-color: gray;
+    width: 50%;
+    height: 100vh;
+  }
+}
+
+.contador{
+  background-color: rgb(13, 206, 13);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-left: 60px;
+  margin-top: 10px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center
+
+}
+
+.numero-centralizado {
+  color: white; 
+  font-size: 35px; 
+  font-family: Arial, sans-serif; 
+  font-weight: bold;
+}
+
+.dinheiro{
+  background-color: white;
+  width: 150px;
+  height: 50px;
+  margin-left: 1000px;
+  margin-top: 20px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  transform: skewX(-20deg);
+  
+}
+
+.numero-dinheiro {
+  color: black; 
+  font-size: 25px; 
+  font-family: Arial, sans-serif; 
+  font-weight: bold;
+}
+
+.dinheiro2{
+  color: white;
+  margin-left: 70px;
+  margin-top: 80px;
+}
