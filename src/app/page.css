@@ -94,6 +94,62 @@ main {
 }
 
 #button {
+  position: absolute;
   z-index: 1000;
 }
 
+.medBox {
+  width: 100%;
+  margin-top: 210px;
+}
+
+.respostaBox{
+  width: 100%;
+  height:45px;
+  justify-items: end;
+  padding-right: 8px;
+  margin-bottom: 20px;
+  
+  && .resposta {
+    border-radius: 2px;
+    width: 90%;
+    background: linear-gradient(to right, #3c6bf5, #4065f5);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    cursor: pointer;
+    transition: filter ease-in-out 0.3s;
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+
+    && span {
+      display: flex;
+      align-items: center;
+      margin-left: 10px;
+      padding-left: 15px;
+      height: 48px;
+      background: #1a1f22;
+      color: #3a61e7;
+      border-right: 6px solid #76c8f7;
+      width: 67px;
+      position: absolute;
+      transform: skewX(28deg);
+
+      && h1 {
+        transform: skewX(-28deg);
+      }
+    }
+
+    && .alternativa {
+      margin-left: 100px;
+      text-transform: uppercase;
+      font-weight: 600;
+      left: 58px;
+      color: white;
+    }
+    
+  }
+}
