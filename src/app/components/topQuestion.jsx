@@ -1,8 +1,6 @@
 
 export default function TopQuestion({question}) {
 
-
-
     return (
         <div className="topBox">
             <img className="logo" src="/images/logo.png" alt="logo" />
