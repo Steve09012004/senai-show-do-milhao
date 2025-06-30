@@ -2,7 +2,9 @@ import styles from "../page.css"
 
 export default function Respostas({alternativa, indice, onClick}) {
     return (
+        <label htmlFor={indice}>
         <div className="respostaBox">
+        <input type="radio" id={indice} name="response"/>
 
             <div className="resposta" onClick={() => onClick(indice)}>
                 <span>
@@ -10,6 +12,8 @@ export default function Respostas({alternativa, indice, onClick}) {
                 </span><div className="alternativa"><p>{alternativa}</p></div> 
             </div>
 
+
         </div>
+        </label>
     )
 }

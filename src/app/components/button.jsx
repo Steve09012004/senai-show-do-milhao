@@ -1,11 +1,9 @@
 
-export default function Button({onClick}) {
-
-
+export default function Button({indice, onClick}) {
 
     return (
         <div id="button">
-            <button onClick={onClick}>CONFIRMAR</button>
+            <button onClick={() => onClick(indice)}>CONFIRMAR</button>
         </div>
     )
 }
