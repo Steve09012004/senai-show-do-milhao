@@ -4,7 +4,7 @@ export default function Respostas({alternativa, indice, onClick}) {
     return (
         <label htmlFor={indice}>
         <div className="respostaBox">
-        <input type="radio" id={indice} name="response"/>
+        <input type="radio" id={indice} name="response" />
 
             <div className="resposta" onClick={() => onClick(indice)}>
                 <span>
