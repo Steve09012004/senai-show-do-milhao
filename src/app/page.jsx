@@ -26,6 +26,7 @@ export default function Home() {
 
   return (
     <main>
+
       <div className="boxLeft">
           <TopQuestion  question={perguntaAtual}/>
 
@@ -41,6 +42,7 @@ export default function Home() {
           </div>
           
           <Button onClick={verificarResposta}/>
+          
       </div>
       <div className="boxRight">
 
