@@ -1,28 +1,36 @@
 'use client'
 import { useEffect, useState } from "react"
 
-export default function Contador({ time, setTime }) {
+export default function Contador({ time, setTime, endTime }) {
 
     // const [tempo, setTempo] = useState(time);
     const [visivel, setVisivel] = useState(false)
 
-    setTimeout(() => {
-
+    useEffect(() => {
+        
         if (time == 0) {
             setVisivel(false)
+            endTime()
+            return
         }
-        if (time > 0) {
-            setTime(time - 1);
-            console.log(time);
-
-            if (time <= 30) {
-                setVisivel(true)
+         
+        const timer = setTimeout(() => {
+            if (time > 0) {
+                setTime(time - 1);
+                console.log(time);
+    
+                if (time <= 30) {
+                    setVisivel(true)
+                }
+                else {
+                    setVisivel(false)
+                }
             }
+        }, 100)
 
+        return() => clearTimeout(timer)
 
-
-        }
-    }, 1000)
+    },[time, setTime]);
 
     return (
         <div>
