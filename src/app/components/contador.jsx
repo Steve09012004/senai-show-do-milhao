@@ -1,21 +1,21 @@
 'use client'
 import { useEffect, useState } from "react"
 
-export default function Contador({ time, startTime }) {
+export default function Contador({ time, setTime }) {
 
-    const [tempo, setTempo] = useState(time);
+    // const [tempo, setTempo] = useState(time);
     const [visivel, setVisivel] = useState(false)
 
     setTimeout(() => {
 
-        if (tempo == 0) {
+        if (time == 0) {
             setVisivel(false)
         }
-        if (tempo > 0) {
-            setTempo(tempo - 1);
-            console.log(tempo);
+        if (time > 0) {
+            setTime(time - 1);
+            console.log(time);
 
-            if (tempo <= 30) {
+            if (time <= 30) {
                 setVisivel(true)
             }
 
@@ -30,7 +30,7 @@ export default function Contador({ time, startTime }) {
             {visivel && (
                 <div className="contadorBox">
                     <div className="contador">
-                        <span onLoad={startTime} className="numero-centralizado">{tempo}</span>
+                        <span className="numero-centralizado">{time}</span>
                     </div>
                 </div>
             )}

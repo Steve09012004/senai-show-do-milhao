@@ -7,14 +7,16 @@ import Help from "./components/helpButton";
 import Respostas from "./components/respostas";
 import Contador from "./components/contador";
 import Money from "./components/dinheiro";
-import React from "react";
+import Lose from "./components/lose";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 
 
 export default function Home() {
   const questions = require('./questions.json')
-  const audio = document.getElementById("certaResposta")
+  const audioCertaResposta = document.getElementById("certaResposta")
+  const audioErradaResposta = document.getElementById("erradaResposta")
 
   const [enunciado, setEnunciado] = useState(0)
   const perguntaAtual = questions[enunciado]
@@ -24,10 +26,8 @@ export default function Home() {
   const [clickBtnConfirm, setClickBtnConfirm] = useState(true)
   const [dinheiro, setDinheiro] = useState(0)
   const[time, setTime] = useState(40)
+  const [visible, setVisible] = useState(false)
 
-  
-
-  
   
   function eliminarResposta() {
     setClickBtnHelp(true)
@@ -58,7 +58,10 @@ export default function Home() {
 
     if (perguntaAtual.resposta == perguntaAtual.alternativas[indice]) {
       setEnunciado(enunciado + 1)
-      audio.play()
+      audioCertaResposta.play()
+
+      setTime(40);
+      
       if (dinheiro === 0) {
         setDinheiro(500)
       }else {
@@ -76,17 +79,18 @@ export default function Home() {
     }
 
     else {
-      alert("Errou")
+      audioErradaResposta.play()
+      setVisible(true)
     }
   }
 
-
-
-  
-
   return (
     <main id="main">
+
       <audio id="certaResposta" src="audios/certaResposta.mp3"></audio>
+      <audio id="erradaResposta" src="audios/erradaResposta.mp3"></audio>
+
+
       <div className="boxLeft">
         <TopQuestion question={perguntaAtual} />
 
@@ -117,11 +121,14 @@ export default function Home() {
       </div>
       <div className="boxRight">
         <div className="topBox">
-          <Contador time={time}/>
+          <Contador time={time} setTime={setTime}/>
           <Money money={dinheiro}/>
         </div>
 
       </div>
+        <div className={visible ? 'loseBoxMain' : 'hide'}>
+          <Lose money={dinheiro}/>
+        </div>
 
       
     </main>
