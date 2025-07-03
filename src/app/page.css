@@ -27,11 +27,27 @@
   }
 }
 
+.visible {
+  opacity: 0.3;
+  cursor: default !important;
+}
+
+.blurBack {
+  filter: blur(5px);
+  pointer-events: none;
+}
+
 main {
   display: flex;
   flex-direction: row;
   gap: 0;
-  grid-row-start: 2;
+
+
+  && .containner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
 
   && .boxLeft {
     background: url("https://apolloblinds.com.au/wp-content/uploads/2018/12/green42.jpg");
@@ -291,7 +307,7 @@ main {
   }
 }
 
-.loseBoxMain {
+.loseBoxMain, .termsBoxMain {
   width: 100%;
   height: 100%;
   display: flex;
@@ -301,11 +317,13 @@ main {
   position: fixed;
 }
 
+
 .hide {
   display: none;
 }
 
-.loseBox {
+.loseBox, .termsBox {
+  z-index: 10000;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -323,10 +341,27 @@ main {
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
-  
+  && .terms {
+    text-decoration: underline;
+    margin-top: 30px;
+    color: #15da15;
+    font-size: 1.1em;
+   }
+
+   && .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 25px;
+
+    && .decline {
+      background: linear-gradient(135deg, #d81f1f 0%, #960f0f 100%);
+    }
+   }
 }
 
-.loseBox::before {
+.loseBox::before, .termsBox::before {
   content: '';
   position: absolute;
   top: 0;
@@ -337,7 +372,7 @@ main {
   pointer-events: none;
 }
 
-.loseBox h1 {
+.loseBox h1, .termsBox h1 {
   color: #ffffff;
   font-size: 2.5rem;
   font-weight: 700;
@@ -346,7 +381,7 @@ main {
   letter-spacing: -0.5px;
 }
 
-.loseBox h2 {
+.loseBox h2, .termsBox h2 {
   color: #1fd869;
   font-size: 1.4rem;
   font-weight: 600;
@@ -358,7 +393,7 @@ main {
   border: 1px solid rgba(31, 216, 105, 0.3);
 }
 
-.loseBox button {
+.loseBox button, .termsBox button {
   background: linear-gradient(135deg, #1fd869 0%, #0f9648 100%);
   color: #ffffff;
   font-size: 1.1rem;
@@ -375,7 +410,7 @@ main {
   overflow: hidden;
 }
 
-.loseBox button::before {
+.loseBox button::before, .termsBox::before{
   content: '';
   position: absolute;
   top: 0;
@@ -386,23 +421,23 @@ main {
   transition: left 0.5s ease;
 }
 
-.loseBox button:hover {
+.loseBox button:hover, .termsBox button:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 25px rgba(31, 216, 105, 0.4);
   background: linear-gradient(135deg, #0f9648 0%, #1fd869 100%);
 }
 
-.loseBox button:hover::before {
+.loseBox button:hover::before, .termsBox button:hover::before {
   left: 100%;
 }
 
-.loseBox button:active {
+.loseBox button:active, .termsBox button:active {
   transform: translateY(-1px);
   box-shadow: 0 6px 15px rgba(31, 216, 105, 0.3);
 }
 
 /* Animação de entrada */
-.loseBox {
+.loseBox, .termsBox {
   animation: slideIn 0.6s ease-out;
 }
 

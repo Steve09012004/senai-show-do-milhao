@@ -1,6 +1,7 @@
 [
     {
       "enunciado": "Qual é a capital do Brasil?",
+      "audio": "audios/questions/001.mp3",
       "resposta": "Brasília",
       "dificuldade": "fácil",
       "alternativas": ["Rio de Janeiro", "São Paulo", "Brasília", "Salvador"]
@@ -8,55 +9,64 @@
 
    
     {
-      "enunciado": "Quantos lados tem um triângulo?",
+      "enunciado": "Quantos lados possui um triângulo isósceles?",
+      "audio": "audios/questions/002.mp3",
       "resposta": "3",
       "dificuldade": "fácil",
       "alternativas": ["2", "3", "4", "5"]
     },
     {
       "enunciado": "Qual é a cor do céu em um dia claro?",
+      "audio": "audios/questions/003.mp3",
       "resposta": "Azul",
       "dificuldade": "fácil",
       "alternativas": ["Verde", "Azul", "Vermelho", "Amarelo"]
     },
     {
       "enunciado": "Qual é o maior planeta do sistema solar?",
+      "audio": "audios/questions/004.mp3",
       "resposta": "Júpiter",
       "dificuldade": "fácil",
       "alternativas": ["Terra", "Marte", "Júpiter", "Saturno"]
     },
     {
       "enunciado": "Quantos meses têm um ano?",
+      "audio": "audios/questions/005.mp3",
       "resposta": "12",
       "dificuldade": "fácil",
       "alternativas": ["10", "12", "14", "11"]
     },
     {
       "enunciado": "Qual animal é conhecido como 'Rei da Selva'?",
+      "audio": "audios/questions/006.mp3",
       "resposta": "Leão",
       "dificuldade": "fácil",
       "alternativas": ["Elefante", "Leão", "Tigre", "Girafa"]
     },
     {
       "enunciado": "Qual é o resultado da soma 2 + 2?",
+      "audio": "audios/questions/007.mp3",
       "resposta": "4",
       "dificuldade": "fácil",
       "alternativas": ["3", "4", "5", "6"]
     },
     {
       "enunciado": "Qual é o oposto de 'frio'?",
+      "audio": "audios/questions/008.mp3",
       "resposta": "Quente",
       "dificuldade": "fácil",
       "alternativas": ["Quente", "Gelo", "Calor", "Fresco"]
     },
     {
       "enunciado": "Qual é o nome do nosso planeta?",
+      "audio": "audios/questions/009.mp3",
       "resposta": "Terra",
       "dificuldade": "fácil",
       "alternativas": ["Marte", "Terra", "Vênus", "Júpiter"]
     },
     {
       "enunciado": "Quantos dedos temos em uma mão?",
+      "audio": "audios/questions/010.mp3",
       "resposta": "5",
       "dificuldade": "fácil",
       "alternativas": ["4", "5", "6", "7"]

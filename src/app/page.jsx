@@ -8,7 +8,7 @@ import Respostas from "./components/respostas";
 import Contador from "./components/contador";
 import Money from "./components/dinheiro";
 import Lose from "./components/lose";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 
 
@@ -19,6 +19,7 @@ export default function Home() {
   const audioErradaResposta = document.getElementById("erradaResposta")
   const endTimer = document.getElementById("endTime")
   const certeza = document.getElementById("certeza")
+  const questionAudio = useRef(null)
 
   const [enunciado, setEnunciado] = useState(0)
   const perguntaAtual = questions[enunciado]
@@ -29,6 +30,7 @@ export default function Home() {
   const [dinheiro, setDinheiro] = useState(0)
   const [time, setTime] = useState(40)
   const [visible, setVisible] = useState(false)
+  const [blur, setBlur] = useState(true)
   const [aceitou, setAceitou] = useState(false);
 
 
@@ -49,10 +51,16 @@ export default function Home() {
   }
 
   function alterIndex(indice) {
+    if (clickBtnConfirm == false){
+      setClickBtnConfirm(true)
+    }
+
     setTimeout(() => {
       certeza.play()
-    }, 1500)
-    setClickBtnConfirm(false)
+    }, 800)
+    setTimeout(() => {
+      setClickBtnConfirm(false)
+    },1000)
     setIndice(indice)
     
   }
@@ -65,20 +73,13 @@ export default function Home() {
     }
   }
 
-  function startTimeAudio(){
-    if (aceitou) {
-
-    }
-  }
-
   function verificarResposta(indice) {
 
     if (perguntaAtual.resposta == perguntaAtual.alternativas[indice]) {
       setEnunciado(enunciado + 1)
       setTimeout(() => {
-        certeza.play()
         audioCertaResposta.play()
-      }, 1500)
+      }, 250)
       
 
       setTime(40);
@@ -107,60 +108,82 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    if (aceitou && questionAudio.current) {
+      setTimeout(() => {
+        questionAudio.current.play()
+      }, 1300)
+      
+    }
+  }, [aceitou, enunciado])
+  
+  useEffect(() => {
+    setBlur(true)
+  }, [visible])
+
   return (
     <main id="main">
 
-      <audio id="certaResposta" src="audios/certaResposta.mp3"></audio>
-      <audio id="erradaResposta" src="audios/erradaResposta.mp3"></audio>
-      <audio id="endTime" src="audios/endTime.mp3"></audio>
-      <audio id="certeza" src="audios/certeza.mp3"></audio>
+      <div className={blur ? "blurBack containner" : "containner"}>
+        <audio id="certaResposta" src="audios/certaResposta.mp3"></audio>
+        <audio id="erradaResposta" src="audios/erradaResposta.mp3"></audio>
+        <audio id="endTime" src="audios/endTime.mp3"></audio>
+        <audio id="certeza" src="audios/certeza.mp3"></audio>
 
+        {/*audios das questões */}
+        <audio ref={questionAudio} id="questionAudio" src={perguntaAtual.audio}></audio>
 
-      <div className="boxLeft">
-        <TopQuestion question={perguntaAtual} />
-
-        <div className="medBox">
-          {perguntaAtual.alternativas.map((alternativa, index) => (
-            <Respostas
-              key={index}
-              alternativa={alternativa}
-              indice={index}
-              onClick={alterIndex}
-            />
-          ))}
-        </div>
-
-        <div className="buttonsBox">
-          <span></span>
-          <Button
-            clickBtnConfirm={clickBtnConfirm}
-            indice={indice}
-            onClick={verificarResposta}
+        <div className="boxLeft">
+          <TopQuestion 
+          question={perguntaAtual} 
           />
-          <Help
-            clickBtn={clickBtnHelp}
-            onClick={eliminarResposta}
-          />
-        </div>
-
-      </div>
-      <div className="boxRight">
-        <div className="topBox">
-          <div>
-            {!aceitou ? (
-              <button onClick={() => setAceitou(true)}>Aceitar Termos</button>
-            ) : (
-              <Contador time={time} setTime={setTime} endTime={endTime} />
-            )}
+          <div className="medBox">
+            {perguntaAtual.alternativas.map((alternativa, index) => (
+              <Respostas
+                key={index}
+                alternativa={alternativa}
+                indice={index}
+                onClick={alterIndex}
+              />
+            ))}
           </div>
-          <Money money={dinheiro} />
+          <div className="buttonsBox">
+            <Button
+              clickBtnConfirm={clickBtnConfirm}
+              indice={indice}
+              onClick={verificarResposta}
+            />
+            <Help
+              clickBtn={clickBtnHelp}
+              onClick={eliminarResposta}
+            />
+          </div>
         </div>
-
+        <div className="boxRight">
+          <div className="topBox">
+            <div>
+              {!aceitou ? (
+                <></>
+              ) : (
+                <Contador time={time} setTime={setTime} endTime={endTime} />
+              )}
+            </div>
+            <Money money={dinheiro} />
+          </div>
+        </div>
       </div>
       <div className={visible ? 'loseBoxMain' : 'hide'}>
         <Lose money={dinheiro} />
       </div>
-
+      <div className={!aceitou ? "termsBoxMain" : "hide"}>
+        <div className={!aceitou ? "termsBox" : "hide"}>
+          <div className="buttons">
+            <button className="decline" onClick={() => {window.location.href = "https://www.google.com.br";  setBlur(false);}}>Recusar</button>
+            <button onClick={() => {setAceitou(true);  setBlur(false);}}>Aceitar os Termos</button>
+          </div>
+        <a className="terms" href="termosDeUso">Ler termos de Uso</a>
+        </div>
+      </div>
 
     </main>
   );

@@ -1,6 +1,6 @@
 import styles from "../page.css"
 
-export default function Respostas({alternativa, indice, onClick}) {
+export default function Respostas({alternativa, indice, onClick }) {
     return (
         <label htmlFor={indice}>
         <div className="respostaBox">
@@ -11,6 +11,7 @@ export default function Respostas({alternativa, indice, onClick}) {
                     <h1 className="number">{indice + 1}</h1>
                 </span><div className="alternativa"><p>{alternativa}</p></div> 
             </div>
+
 
 
         </div>
