@@ -122,7 +122,14 @@ export default function Home() {
   }, [visible])
 
   return (
+<<<<<<< HEAD
     <main id="main">
+=======
+    <main>
+
+      <div className="boxLeft">
+          <TopQuestion  question={perguntaAtual}/>
+>>>>>>> 23d57129a77c8a53f8763e61593de7b4036f0b03
 
       <div className={blur ? "blurBack containner" : "containner"}>
         <audio id="certaResposta" src="audios/certaResposta.mp3"></audio>
@@ -147,6 +154,7 @@ export default function Home() {
               />
             ))}
           </div>
+<<<<<<< HEAD
           <div className="buttonsBox">
             <Button
               clickBtnConfirm={clickBtnConfirm}
@@ -183,6 +191,11 @@ export default function Home() {
           </div>
         <a className="terms" href="termosDeUso">Ler termos de Uso</a>
         </div>
+=======
+          
+          <Button onClick={verificarResposta}/>
+          
+>>>>>>> 23d57129a77c8a53f8763e61593de7b4036f0b03
       </div>
 
     </main>
