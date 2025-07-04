@@ -85,7 +85,7 @@ export default function TermosDeUso() {
         {/* Prêmio decorativo */}
         <div className="termos-footer">
           <div className="termos-trophy">
-            <div className="trophy-icon">🏆</div>
+            <div className="trophy-icon">🏆'</div>
           </div>
           <div className="termos-footer-text">
             Boa sorte no jogo!

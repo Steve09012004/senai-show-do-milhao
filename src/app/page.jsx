@@ -10,16 +10,19 @@ import Money from "./components/dinheiro";
 import Lose from "./components/lose";
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
+import Inicio from "./components/inicio";
+
 
 
 
 export default function Home() {
   const questions = require('./questions.json')
-  const audioCertaResposta = document.getElementById("certaResposta")
-  const audioErradaResposta = document.getElementById("erradaResposta")
-  const endTimer = document.getElementById("endTime")
-  const certeza = document.getElementById("certeza")
+  const audioCertaResposta = useRef(null)
+  const audioErradaResposta = useRef(null)
+  const endTimer = useRef(null)
+  const certeza = useRef(null)
   const questionAudio = useRef(null)
+  const startAudio = useRef(null)
 
   const [enunciado, setEnunciado] = useState(0)
   const perguntaAtual = questions[enunciado]
@@ -32,7 +35,15 @@ export default function Home() {
   const [visible, setVisible] = useState(false)
   const [blur, setBlur] = useState(true)
   const [aceitou, setAceitou] = useState(false);
+  const [start, setStart] = useState(false)
+  const [name, setName] = useState("")
 
+
+  function startGame(name) {
+    setName(name)
+    setStart(true)
+    startAudio.current.play()
+  }
 
   function eliminarResposta() {
     setClickBtnHelp(true)
@@ -56,7 +67,7 @@ export default function Home() {
     }
 
     setTimeout(() => {
-      certeza.play()
+      certeza.current.play()
     }, 800)
     setTimeout(() => {
       setClickBtnConfirm(false)
@@ -68,7 +79,7 @@ export default function Home() {
   function endTime() {
     if (aceitou) {
 
-      endTimer.play()
+      endTimer.current.play()
       setVisible(true)
     }
   }
@@ -78,7 +89,7 @@ export default function Home() {
     if (perguntaAtual.resposta == perguntaAtual.alternativas[indice]) {
       setEnunciado(enunciado + 1)
       setTimeout(() => {
-        audioCertaResposta.play()
+        audioCertaResposta.current.play()
       }, 250)
       
 
@@ -102,7 +113,7 @@ export default function Home() {
 
     else {
       setTimeout(() => {
-        audioErradaResposta.play()
+        audioErradaResposta.current.play()
       }, 1500)
       setVisible(true)
     }
@@ -122,20 +133,17 @@ export default function Home() {
   }, [visible])
 
   return (
-<<<<<<< HEAD
+    <>
+    <div className={start ? "hideInicio" : "main"}>
+      <Inicio startGame={startGame}/>
+    </div>
     <main id="main">
-=======
-    <main>
-
-      <div className="boxLeft">
-          <TopQuestion  question={perguntaAtual}/>
->>>>>>> 23d57129a77c8a53f8763e61593de7b4036f0b03
-
       <div className={blur ? "blurBack containner" : "containner"}>
-        <audio id="certaResposta" src="audios/certaResposta.mp3"></audio>
-        <audio id="erradaResposta" src="audios/erradaResposta.mp3"></audio>
-        <audio id="endTime" src="audios/endTime.mp3"></audio>
-        <audio id="certeza" src="audios/certeza.mp3"></audio>
+        <audio ref={audioCertaResposta} id="certaResposta" src="audios/certaResposta.mp3"></audio>
+        <audio ref={audioErradaResposta} id="erradaResposta" src="audios/erradaResposta.mp3"></audio>
+        <audio ref={endTimer} id="endTime" src="audios/endTime.mp3"></audio>
+        <audio ref={certeza} id="certeza" src="audios/certeza.mp3"></audio>
+        <audio ref={startAudio} id="startaudio" src="audios/start.mp3"></audio>
 
         {/*audios das questões */}
         <audio ref={questionAudio} id="questionAudio" src={perguntaAtual.audio}></audio>
@@ -147,24 +155,23 @@ export default function Home() {
           <div className="medBox">
             {perguntaAtual.alternativas.map((alternativa, index) => (
               <Respostas
-                key={index}
-                alternativa={alternativa}
-                indice={index}
-                onClick={alterIndex}
+              key={index}
+              alternativa={alternativa}
+              indice={index}
+              onClick={alterIndex}
               />
             ))}
           </div>
-<<<<<<< HEAD
           <div className="buttonsBox">
             <Button
               clickBtnConfirm={clickBtnConfirm}
               indice={indice}
               onClick={verificarResposta}
-            />
+              />
             <Help
               clickBtn={clickBtnHelp}
               onClick={eliminarResposta}
-            />
+              />
           </div>
         </div>
         <div className="boxRight">
@@ -180,6 +187,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+
       <div className={visible ? 'loseBoxMain' : 'hide'}>
         <Lose money={dinheiro} />
       </div>
@@ -191,13 +199,8 @@ export default function Home() {
           </div>
         <a className="terms" href="termosDeUso">Ler termos de Uso</a>
         </div>
-=======
-          
-          <Button onClick={verificarResposta}/>
-          
->>>>>>> 23d57129a77c8a53f8763e61593de7b4036f0b03
       </div>
-
     </main>
+    </>
   );
 }
