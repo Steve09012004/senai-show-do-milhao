@@ -30,6 +30,7 @@ export default function Home() {
 
   const [enunciado, setEnunciado] = useState(0)
   const perguntaAtual = questions[enunciado]
+  const [selected, setSelected] = useState(false)
   const [indice, setIndice] = useState("")
   const [ajuda, setAjuda] = useState(3)
   const [clickBtnHelp, setClickBtnHelp] = useState(false)
@@ -57,7 +58,7 @@ export default function Home() {
     }
   }
 
-  function startVideo(){
+  function startVideo() {
     videoIntro.current.play()
   }
 
@@ -81,7 +82,8 @@ export default function Home() {
     for (const div of divs) {
       const p = div.querySelector('p')
       if (p && embaralhadas.includes(p.textContent.trim())) {
-        div.querySelector('.resposta').style.background = 'red';
+        let box = div.querySelector('.resposta')
+        box.classList.add("elimined");
       }
     }
   }
@@ -126,8 +128,14 @@ export default function Home() {
         setDinheiro(dinheiro * 2)
       }
       const divs = document.querySelectorAll('.respostaBox')
+      const radio = document.querySelector('input[type="radio"]:checked');
+      if (radio) {
+        radio.checked = false;
+      }
       for (const div of divs) {
-        div.querySelector('.resposta').style.background = 'linear-gradient(to right, #3c6bf5, #4065f5)'
+        let box = div.querySelector('.resposta')
+        box.classList.add("default");
+        box.classList.remove("elimined")
         setClickBtnHelp(false)
         setClickBtnConfirm(true)
       }
@@ -159,24 +167,24 @@ export default function Home() {
 
   return (
     <>
-    {aceitou && (
-      <>
-      {showCredits && (
-        <DeveloperCredits onComplete={() => {
-          setShowCredits(false);
-          setShowPresentation(true);
-        }} />
+      {aceitou && (
+        <>
+          {showCredits && (
+            <DeveloperCredits onComplete={() => {
+              setShowCredits(false);
+              setShowPresentation(true);
+            }} />
+          )}
+          {showPresentation && (
+            <SenaiGamesPresentation onComplete={() => {
+              setShowPresentation(false);
+              setShowGame(true);
+            }} startVideo={startVideo} />
+          )}
+        </>
       )}
-      {showPresentation && (
-        <SenaiGamesPresentation onComplete={() => {
-          setShowPresentation(false);
-          setShowGame(true);
-        }} startVideo={startVideo} />
-      )}
-      </>
-    )}
-      
-      
+
+
       <div className={`main ${start ? "hideInicio" : "Box"}`}>
         <Inicio startGame={() => { startGame(); setAceitou(true); }} videoIntro={videoIntro} />
       </div>
@@ -191,7 +199,7 @@ export default function Home() {
 
           {/*audios das questões */}
           <audio ref={questionAudio} id="questionAudio" src={perguntaAtual.audio}></audio>
-
+          <div className="Studio"></div>
           <div className="boxLeft">
             <TopQuestion
               question={perguntaAtual}
@@ -203,6 +211,7 @@ export default function Home() {
                   alternativa={alternativa}
                   indice={index}
                   onClick={alterIndex}
+                  selected={selected}
                 />
               ))}
             </div>
