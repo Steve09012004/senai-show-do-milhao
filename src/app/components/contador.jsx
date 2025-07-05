@@ -1,7 +1,9 @@
 'use client'
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function Contador({ time, setTime, endTime }) {
+    const tempoAudio = useRef(null)
+    const [play, setPlay] = useState(true)
 
     // const [tempo, setTempo] = useState(time);
     const [visivel, setVisivel] = useState(false)
@@ -19,8 +21,10 @@ export default function Contador({ time, setTime, endTime }) {
                 setTime(time - 1);
                 console.log(time);
     
-                if (time <= 30) {
+                if (time <= 20) {
                     setVisivel(true)
+                    play ? tempoAudio.current.play() : null
+                    setPlay(false)
                 }
                 else {
                     setVisivel(false)
@@ -34,6 +38,7 @@ export default function Contador({ time, setTime, endTime }) {
 
     return (
         <div>
+            <audio ref={tempoAudio} src="audios/tempo.mp3"></audio>
             
             {visivel && (
                 <div className="contadorBox">

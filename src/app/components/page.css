@@ -1,52 +1,273 @@
 .hideInicio {
-    width: 0 !important;
-    height: 0 !important;
-    transform: scale(0.0);
+    position: absolute;
+    transform: scale(0.0) !important;
     transition: all 0.5s ease-in-out;
 }
 
-.main{
-    background:linear-gradient(to bottom, #1fd869, #0f9648) ;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.Box {
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f9648 0%, #1fd869 50%, #15da15 100%);
+    min-height: 100vh;
+}
+
+.main {
+    position: absolute;
+    z-index: 10000;
     width: 100%;
     height: 100vh;
-    justify-content: center;
-    display: flex;
-    position: absolute;
-    transform: scale(1);
-    z-index: 100000000;
-}
+    background: url('../../../public/images/Showdomilhao.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    perspective: 1000px;
+    overflow: hidden;
 
-#logo {
-    width: 100%;
-    text-align: center;
-}
-
-.nome{
-    margin-top: -80px;
-    justify-content: center;
-    display: flex;
-
-    && input{
-        border: none ;
-        letter-spacing: 2px;
-        font-size: 1.5em;
-        padding: 0 15px;
-        height: 45px;
-        width: 370px;
-        border-radius: 5px;
-        font-weight: 600;
-        text-align: center;
+    && video {
+        position: fixed;
+        margin-top: -70px;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 108vh;
+        object-fit: cover;
+        z-index: -1;
     }
 }
 
-.começar{
-    justify-content: center;
+.main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.801);
+    z-index: 1;
+}
+
+.inicio {
+    position: relative;
+    z-index: 2;
     display: flex;
-    padding: 15px;
-    
-    && button{
-    
-        padding: 10px;
-        width: 120px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 2rem;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#Logo {
+    margin-bottom: 3rem;
+    text-align: center;
+    animation: logoGlow 2s ease-in-out infinite alternate;
+}
+
+#Logo::before {
+    content: "SHOW DO MILHÃO";
+    font-size: 4rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #15da15, #1fd869, #3c6bf5, #4065f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(21, 218, 21, 0.5);
+    display: block;
+    animation: textShine 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+    from {
+        filter: drop-shadow(0 0 20px rgba(21, 218, 21, 0.6));
+    }
+
+    to {
+        filter: drop-shadow(0 0 40px rgba(31, 216, 105, 0.8));
+    }
+}
+
+@keyframes textShine {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+#Entrada {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(21, 218, 21, 0.3);
+    transform: translateZ(50px);
+    animation: cardFloat 3s ease-in-out infinite;
+}
+
+@keyframes cardFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px) translateZ(50px);
+    }
+
+    50% {
+        transform: translateY(-10px) translateZ(50px);
+    }
+}
+
+.nome {
+    margin-bottom: 2rem;
+}
+
+.nome input {
+    width: 100%;
+    padding: 1.5rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f9648;
+    font-weight: 600;
+    text-align: center;
+    box-shadow:
+        inset 0 2px 10px rgba(0, 0, 0, 0.1),
+        0 0 0 2px rgba(21, 218, 21, 0.3);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.nome input:focus {
+    box-shadow:
+        inset 0 2px 10px rgba(0, 0, 0, 0.1),
+        0 0 0 3px rgba(21, 218, 21, 0.6),
+        0 0 20px rgba(21, 218, 21, 0.4);
+    transform: scale(1.02);
+}
+
+.nome input::placeholder {
+    color: rgba(15, 150, 72, 0.7);
+}
+
+.começar {
+    text-align: center;
+}
+
+.começar button {
+    padding: 1.5rem 3rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #15da15, #1fd869, #0f9648);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow:
+        0 10px 30px rgba(21, 218, 21, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.começar button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.começar button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 15px 40px rgba(21, 218, 21, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(45deg, #1fd869, #15da15, #0f9648);
+}
+
+.começar button:hover::before {
+    left: 100%;
+}
+
+.começar button:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* Partículas flutuantes */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #15da15;
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: translateY(-100px) rotate(180deg);
+        opacity: 0.3;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #Logo::before {
+        font-size: 2.5rem;
+    }
+
+    #Entrada {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .nome input {
+        font-size: 1rem;
+        padding: 1.2rem;
+    }
+
+    .começar button {
+        padding: 1.2rem 2.5rem;
+        font-size: 1.1rem;
     }
 }

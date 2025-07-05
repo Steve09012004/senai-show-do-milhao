@@ -104,9 +104,17 @@ main {
 
 
   && .boxRight {
-    background-color: gray;
+    background: url('../../public/videos/silvinho.gif');
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    background-size: contain;
+    transform: scaleX(-1);
     width: 50%;
     height: 100vh;
+    
+    && .topBox {
+      transform: scaleX(-1);
+    }
   }
 }
 
@@ -315,6 +323,7 @@ main {
   justify-content: center;
   z-index: 10000;
   position: fixed;
+  background-color: #1a1a1a;
 }
 
 

@@ -11,6 +11,8 @@ import Lose from "./components/lose";
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Inicio from "./components/inicio";
+import DeveloperCredits from "./components/developerCredits";
+import SenaiGamesPresentation from "./components/senaiGamesPresentation";
 
 
 
@@ -23,6 +25,8 @@ export default function Home() {
   const certeza = useRef(null)
   const questionAudio = useRef(null)
   const startAudio = useRef(null)
+  const introAudio = useRef(null)
+  const videoIntro = useRef(null)
 
   const [enunciado, setEnunciado] = useState(0)
   const perguntaAtual = questions[enunciado]
@@ -31,17 +35,38 @@ export default function Home() {
   const [clickBtnHelp, setClickBtnHelp] = useState(false)
   const [clickBtnConfirm, setClickBtnConfirm] = useState(true)
   const [dinheiro, setDinheiro] = useState(0)
-  const [time, setTime] = useState(40)
+  const [time, setTime] = useState(30)
   const [visible, setVisible] = useState(false)
   const [blur, setBlur] = useState(true)
   const [aceitou, setAceitou] = useState(false);
   const [start, setStart] = useState(false)
   const [name, setName] = useState("")
 
+  const [showCredits, setShowCredits] = useState(true);
+  const [showPresentation, setShowPresentation] = useState(false);
+  const [showGame, setShowGame] = useState(false);
+
+  function startIntro() {
+    introAudio.current.volume = 0.0;
+    introAudio.current.play();
+
+    for (let i = 1; i <= 10; i++) {
+      setTimeout(() => {
+        introAudio.current.volume = i / 10;
+      }, i * 500);
+    }
+  }
+
+  function startVideo(){
+    videoIntro.current.play()
+  }
+
 
   function startGame(name) {
     setName(name)
     setStart(true)
+    introAudio.current.pause()
+    videoIntro.current.pause()
     startAudio.current.play()
   }
 
@@ -62,7 +87,7 @@ export default function Home() {
   }
 
   function alterIndex(indice) {
-    if (clickBtnConfirm == false){
+    if (clickBtnConfirm == false) {
       setClickBtnConfirm(true)
     }
 
@@ -71,9 +96,9 @@ export default function Home() {
     }, 800)
     setTimeout(() => {
       setClickBtnConfirm(false)
-    },1000)
+    }, 1000)
     setIndice(indice)
-    
+
   }
 
   function endTime() {
@@ -91,7 +116,7 @@ export default function Home() {
       setTimeout(() => {
         audioCertaResposta.current.play()
       }, 250)
-      
+
 
       setTime(40);
 
@@ -124,83 +149,103 @@ export default function Home() {
       setTimeout(() => {
         questionAudio.current.play()
       }, 1300)
-      
+
     }
-  }, [aceitou, enunciado])
-  
+  }, [start, enunciado])
+
   useEffect(() => {
     setBlur(true)
   }, [visible])
 
   return (
     <>
-    <div className={start ? "hideInicio" : "main"}>
-      <Inicio startGame={startGame}/>
-    </div>
-    <main id="main">
-      <div className={blur ? "blurBack containner" : "containner"}>
-        <audio ref={audioCertaResposta} id="certaResposta" src="audios/certaResposta.mp3"></audio>
-        <audio ref={audioErradaResposta} id="erradaResposta" src="audios/erradaResposta.mp3"></audio>
-        <audio ref={endTimer} id="endTime" src="audios/endTime.mp3"></audio>
-        <audio ref={certeza} id="certeza" src="audios/certeza.mp3"></audio>
-        <audio ref={startAudio} id="startaudio" src="audios/start.mp3"></audio>
+    {aceitou && (
+      <>
+      {showCredits && (
+        <DeveloperCredits onComplete={() => {
+          setShowCredits(false);
+          setShowPresentation(true);
+        }} />
+      )}
+      {showPresentation && (
+        <SenaiGamesPresentation onComplete={() => {
+          setShowPresentation(false);
+          setShowGame(true);
+        }} startVideo={startVideo} />
+      )}
+      </>
+    )}
+      
+      
+      <div className={`main ${start ? "hideInicio" : "Box"}`}>
+        <Inicio startGame={() => { startGame(); setAceitou(true); }} videoIntro={videoIntro} />
+      </div>
+      <main id="main">
+        <div className={blur ? "blurBack containner" : "containner"}>
+          <audio ref={introAudio} src="audios/intro/intro.mp3"></audio>
+          <audio ref={audioCertaResposta} id="certaResposta" src="audios/certaResposta.mp3"></audio>
+          <audio ref={audioErradaResposta} id="erradaResposta" src="audios/erradaResposta.mp3"></audio>
+          <audio ref={endTimer} id="endTime" src="audios/endTime.mp3"></audio>
+          <audio ref={certeza} id="certeza" src="audios/certeza.mp3"></audio>
+          <audio ref={startAudio} id="startaudio" src="audios/start.mp3"></audio>
 
-        {/*audios das questões */}
-        <audio ref={questionAudio} id="questionAudio" src={perguntaAtual.audio}></audio>
+          {/*audios das questões */}
+          <audio ref={questionAudio} id="questionAudio" src={perguntaAtual.audio}></audio>
 
-        <div className="boxLeft">
-          <TopQuestion 
-          question={perguntaAtual} 
-          />
-          <div className="medBox">
-            {perguntaAtual.alternativas.map((alternativa, index) => (
-              <Respostas
-              key={index}
-              alternativa={alternativa}
-              indice={index}
-              onClick={alterIndex}
-              />
-            ))}
-          </div>
-          <div className="buttonsBox">
-            <Button
-              clickBtnConfirm={clickBtnConfirm}
-              indice={indice}
-              onClick={verificarResposta}
-              />
-            <Help
-              clickBtn={clickBtnHelp}
-              onClick={eliminarResposta}
-              />
-          </div>
-        </div>
-        <div className="boxRight">
-          <div className="topBox">
-            <div>
-              {!aceitou ? (
-                <></>
-              ) : (
-                <Contador time={time} setTime={setTime} endTime={endTime} />
-              )}
+          <div className="boxLeft">
+            <TopQuestion
+              question={perguntaAtual}
+            />
+            <div className="medBox">
+              {perguntaAtual.alternativas.map((alternativa, index) => (
+                <Respostas
+                  key={index}
+                  alternativa={alternativa}
+                  indice={index}
+                  onClick={alterIndex}
+                />
+              ))}
             </div>
-            <Money money={dinheiro} />
+            <div className="buttonsBox">
+              <Button
+                clickBtnConfirm={clickBtnConfirm}
+                indice={indice}
+                onClick={verificarResposta}
+              />
+              <Help
+                clickBtn={clickBtnHelp}
+                onClick={eliminarResposta}
+              />
+            </div>
+          </div>
+          <div className="boxRight">
+            <div className="topBox">
+              <div>
+                {!start ? (
+                  <></>
+                ) : (
+                  <Contador time={time} setTime={setTime} endTime={endTime} />
+                )}
+              </div>
+              <Money money={dinheiro} />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className={visible ? 'loseBoxMain' : 'hide'}>
-        <Lose money={dinheiro} />
-      </div>
-      <div className={!aceitou ? "termsBoxMain" : "hide"}>
-        <div className={!aceitou ? "termsBox" : "hide"}>
-          <div className="buttons">
-            <button className="decline" onClick={() => {window.location.href = "https://www.google.com.br";  setBlur(false);}}>Recusar</button>
-            <button onClick={() => {setAceitou(true);  setBlur(false);}}>Aceitar os Termos</button>
-          </div>
-        <a className="terms" href="termosDeUso">Ler termos de Uso</a>
+        <div className={visible ? 'loseBoxMain' : 'hide'}>
+          <Lose money={dinheiro} />
         </div>
-      </div>
-    </main>
+        <div className={!aceitou ? "termsBoxMain" : "hide"}>
+          <div className={!aceitou ? "termsBox" : "hide"}>
+            <h2>Ao jogar você concorda com os termos de uso.</h2>
+            <div className="buttons">
+              <button className="decline" onClick={() => { window.location.href = "https://www.google.com.br"; setBlur(false); }}>Recusar</button>
+              <button onClick={() => { setBlur(false), setAceitou(true), startIntro() }}>Aceitar os Termos</button>
+            </div>
+            <a className="terms" href="termosDeUso">Ler termos de Uso</a>
+          </div>
+        </div>
+      </main>
     </>
   );
 }
