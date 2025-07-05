@@ -155,6 +155,11 @@ export default function Home() {
   function restart() {
     alert("Aqui")
     setVisible(false)
+    const radio = document.querySelector('input[type="radio"]:checked');
+      if (radio) {
+        radio.checked = false;
+      }
+      setStart(false)
   }
 
   useEffect(() => {
@@ -167,7 +172,11 @@ export default function Home() {
   }, [start, enunciado])
 
   useEffect(() => {
-    setBlur(true)
+    if (blur == false) {
+      setBlur(true)
+    }else {
+      setBlur(false)
+    }
   }, [visible])
 
   return (

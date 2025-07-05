@@ -15,6 +15,8 @@
     overflow: hidden;
     background: linear-gradient(135deg, #0f9648 0%, #1fd869 50%, #15da15 100%);
     min-height: 100vh;
+    pointer-events: all;
+    transition: all 0.5s ease-in-out;
 }
 
 .main {
