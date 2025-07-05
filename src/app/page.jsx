@@ -156,8 +156,9 @@ export default function Home() {
   }
 
   function restart() {
-    alert("Aqui")
     setVisible(false)
+    startIntro()
+    startVideo()
     const radio = document.querySelector('input[type="radio"]:checked');
       if (radio) {
         radio.checked = false;
