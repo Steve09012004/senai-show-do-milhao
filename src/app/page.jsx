@@ -66,6 +66,9 @@ export default function Home() {
   function startGame(name) {
     setName(name)
     setStart(true)
+    if(enunciado == 0) {
+      setEnunciado(1)
+    }
     introAudio.current.pause()
     videoIntro.current.pause()
     startAudio.current.play()
@@ -120,7 +123,7 @@ export default function Home() {
       }, 250)
 
 
-      setTime(40);
+      setTime(30);
 
       if (dinheiro === 0) {
         setDinheiro(500)
@@ -159,11 +162,16 @@ export default function Home() {
       if (radio) {
         radio.checked = false;
       }
+      if (enunciado > 0) {
+        setEnunciado(0)
+      }
+      setTime(30)
+      setDinheiro(0)
       setStart(false)
   }
 
   useEffect(() => {
-    if (aceitou && questionAudio.current) {
+    if (aceitou && questionAudio.current && enunciado>=1) {
       setTimeout(() => {
         questionAudio.current.play()
       }, 1300)

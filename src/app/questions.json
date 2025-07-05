@@ -1,5 +1,12 @@
 [
     {
+      "enunciado": "",
+      "audio": null,
+      "resposta": "",
+      "dificuldade": "",
+      "alternativas": ["", "", "", ""]
+    },
+    {
       "enunciado": "Qual é a capital do Brasil?",
       "audio": "audios/questions/001.mp3",
       "resposta": "Brasília",
