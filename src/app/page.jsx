@@ -152,6 +152,11 @@ export default function Home() {
     }
   }
 
+  function restart() {
+    alert("Aqui")
+    setVisible(false)
+  }
+
   useEffect(() => {
     if (aceitou && questionAudio.current) {
       setTimeout(() => {
@@ -242,7 +247,10 @@ export default function Home() {
         </div>
 
         <div className={visible ? 'loseBoxMain' : 'hide'}>
-          <Lose money={dinheiro} />
+          <Lose 
+          money={dinheiro} 
+          restart={restart}
+          />
         </div>
         <div className={!aceitou ? "termsBoxMain" : "hide"}>
           <div className={!aceitou ? "termsBox" : "hide"}>

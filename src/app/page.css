@@ -394,6 +394,7 @@ main {
 
 .hide {
   display: none;
+  pointer-events: none;
 }
 
 .loseBox,
