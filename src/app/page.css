@@ -58,6 +58,7 @@ main {
     background: url("../../public/images/Studio.jpg");
     background-size: cover;
     background-position: center center;
+    z-index: 1;
 
     &&::before {
       content: "";
@@ -78,7 +79,7 @@ main {
     align-items: start;
     justify-content: start;
     padding: 25px;
-    z-index: 5;
+    z-index: 2;
 
     img {
       width: 150px;
@@ -123,6 +124,8 @@ main {
 
 
   && .boxRight {
+    z-index: 3;
+    pointer-events: none;
     background: url('../../public/videos/silvinho.gif');
     background-repeat: no-repeat;
     background-position: 50% 100%;
@@ -138,6 +141,7 @@ main {
 }
 
 .medBox {
+  z-index: 4;
   width: 100%;
   margin-top: 210px;
 }
@@ -340,8 +344,8 @@ main {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  margin-left: 60px;
-  margin-top: 10px;
+  margin-left: -10px;
+  margin-top: 6px;
   display: flex;
   justify-content: center;
   align-items: center
@@ -373,7 +377,10 @@ main {
 }
 
 .moneyBox {
-  width: 140px;
+  right: 0;
+  top: 15px;
+  position: absolute;
+  min-width: 140px;
   height: 50px;
   border: 2px solid #76c8f7;
   box-shadow: 2px 2px 6px 0px #76c8f7;
@@ -474,7 +481,7 @@ main {
 
 .loseBox h1,
 .termsBox h1,
-.winBox h1{
+.winBox h1 {
   color: #ffffff;
   font-size: 2.5rem;
   font-weight: 700;
@@ -485,7 +492,7 @@ main {
 
 .loseBox h2,
 .termsBox h2,
-.winBox h2{
+.winBox h2 {
   color: #1fd869;
   font-size: 1.4rem;
   font-weight: 600;
@@ -499,7 +506,7 @@ main {
 
 .loseBox button,
 .termsBox button,
-.winBox button{
+.winBox button {
   background: linear-gradient(135deg, #1fd869 0%, #0f9648 100%);
   color: #ffffff;
   font-size: 1.1rem;
@@ -518,7 +525,7 @@ main {
 
 .loseBox button::before,
 .termsBox button::before,
-.winBox button::before{
+.winBox button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -531,7 +538,7 @@ main {
 
 .loseBox button:hover,
 .termsBox button:hover,
-.winBox button:hover{
+.winBox button:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 25px rgba(31, 216, 105, 0.4);
   background: linear-gradient(135deg, #0f9648 0%, #1fd869 100%);
@@ -539,13 +546,13 @@ main {
 
 .loseBox button:hover::before,
 .termsBox button:hover::before,
-.winBox button:hover::before{
+.winBox button:hover::before {
   left: 100%;
 }
 
 .loseBox button:active,
 .termsBox button:active,
-.winBox button:active{
+.winBox button:active {
   transform: translateY(-1px);
   box-shadow: 0 6px 15px rgba(31, 216, 105, 0.3);
 }
@@ -554,10 +561,38 @@ main {
 .loseBox,
 .termsBox,
 .winBox {
-  animation: slideIn 0.6s ease-out;
+  animation: slideStart 0.6s ease-out;
 }
 
-@keyframes slideIn {
+.rankingClick {
+  border-radius: 50%;
+  background: #1a1a1a00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  position: absolute;
+  text-align: center;
+  z-index: 8;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: skewX(7deg);
+    filter: brightness(1.2);
+  }
+
+  && img {
+    padding: 5px;
+    top: 0px;
+    left: 0px;
+    z-index: 10001;
+    width: 64px;
+  }
+}
+
+@keyframes slideStart {
   from {
     opacity: 0;
     transform: translateY(-30px) scale(0.9);
@@ -567,4 +602,189 @@ main {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+.ranking {
+  z-index: 8;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #3c6bf5 0%, #4065f5 100%);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(60, 107, 245, 0.4);
+  padding: 40px 30px;
+  min-width: 400px;
+  max-width: 500px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ranking::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  pointer-events: none;
+}
+
+.ranking h1 {
+  margin: 0 0 25px 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  z-index: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.5px;
+  position: relative;
+}
+
+.ranking-close {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: linear-gradient(135deg, #1fd869 0%, #0f9648 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(31, 216, 105, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transform: skewX(-15deg);
+  will-change: transform;
+}
+
+.ranking-close:hover {
+  transform: skewX(-15deg) translateY(-3px);
+  box-shadow: 0 12px 25px rgba(31, 216, 105, 0.4);
+  background: linear-gradient(135deg, #0f9648 0%, #1fd869 100%);
+}
+
+.ranking ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1;
+  position: relative;
+}
+
+.ranking li {
+  padding: 15px 20px;
+  margin: 15px 0;
+  background: linear-gradient(to right, #3c6bf5, #4065f5);
+  border-radius: 8px;
+  border-left: 5px solid #76c8f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  transform: skewX(-5deg);
+  box-shadow: 0 4px 15px rgba(60, 107, 245, 0.2);
+  position: relative;
+  will-change: transform;
+}
+
+.ranking li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.ranking li:hover {
+  background: linear-gradient(to right, #4065f5, #3c6bf5);
+  transform: skewX(-5deg) translateX(10px);
+  box-shadow: 0 8px 25px rgba(60, 107, 245, 0.4);
+}
+
+.ranking li:hover::before {
+  left: 100%;
+}
+
+.ranking li > * {
+  position: relative;
+  z-index: 1;
+  transform: skewX(5deg);
+}
+
+.ranking li:first-child {
+  border-left-color: #15da15;
+  background: linear-gradient(to right, #1fd869, #0f9648);
+  box-shadow: 0 4px 15px rgba(31, 216, 105, 0.3);
+}
+
+.ranking li:first-child:hover {
+  background: linear-gradient(to right, #0f9648, #1fd869);
+  box-shadow: 0 8px 25px rgba(31, 216, 105, 0.5);
+}
+
+.ranking li:nth-child(2) {
+  border-left-color: #76c8f7;
+  background: linear-gradient(to right, #76c8f7, #3c6bf5);
+  box-shadow: 0 4px 15px rgba(118, 200, 247, 0.3);
+}
+
+.ranking li:nth-child(2):hover {
+  background: linear-gradient(to right, #3c6bf5, #76c8f7);
+  box-shadow: 0 8px 25px rgba(118, 200, 247, 0.5);
+}
+
+.ranking li:nth-child(3) {
+  border-left-color: #fbbf24;
+  background: linear-gradient(to right, #fbbf24, #f59e0b);
+  box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+}
+
+.ranking li:nth-child(3):hover {
+  background: linear-gradient(to right, #f59e0b, #fbbf24);
+  box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+}
+
+.ranking-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 26, 26, 0.8);
+  z-index: 999;
+  backdrop-filter: blur(5px);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+}
+
+.ranking {
+  animation: slideIn 0.6s ease-out;
 }

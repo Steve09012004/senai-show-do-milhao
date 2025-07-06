@@ -4,7 +4,9 @@ export default function Lose({money, restart}) {
         <div className="winBox">
             <h1>Parabéns!!!</h1>
             <h2>Você ganhou: R${money}</h2>
-            <button onClick={() => restart()}>Voltar a tela inicial</button>
+            <button onClick={() => {
+                restart()
+                }}>Voltar a tela inicial</button>
         </div>
     )
 }

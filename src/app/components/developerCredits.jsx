@@ -37,7 +37,7 @@ export default function DeveloperCredits ({ onComplete }) {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 1000000
+    zIndex: 9
   };
 
   const contentStyle = {

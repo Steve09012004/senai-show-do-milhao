@@ -44,7 +44,7 @@ export default function SenaiGamesPresentation({ onComplete, startVideo }) {
     justifyContent: 'center',
     opacity: opacity ? 1 : 0,
     transition: 'opacity 3.5s ease-in-out',
-    zIndex: 1000000
+    zIndex: 9
   };
 
   const contentStyle = {
@@ -80,7 +80,7 @@ export default function SenaiGamesPresentation({ onComplete, startVideo }) {
     height: '400px',
     background: 'radial-gradient(circle, rgba(20, 83, 220, 0.1) 0%, transparent 70%)',
     borderRadius: '50%',
-    animation: 'pulse 2s infinite',
+    animation: 'pulse 1.5s infinite',
     pointerEvents: 'none'
   };
 
@@ -98,7 +98,7 @@ export default function SenaiGamesPresentation({ onComplete, startVideo }) {
       <style jsx>{`
         @keyframes pulse {
           0% { opacity: 0.1; transform: translate(-50%, -50%) scale(1); }
-          50% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.1); }
+          50% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.3); }
           100% { opacity: 0.1; transform: translate(-50%, -50%) scale(1); }
         }
       `}</style>

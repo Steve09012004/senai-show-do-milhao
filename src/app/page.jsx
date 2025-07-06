@@ -14,12 +14,14 @@ import { useState } from "react";
 import Inicio from "./components/inicio";
 import DeveloperCredits from "./components/developerCredits";
 import SenaiGamesPresentation from "./components/senaiGamesPresentation";
+import Ranking from "./components/ranking";
 
 
 
 
 export default function Home() {
   const questions = require('./questions.json')
+  const ranking = require('../../data/ranking.json')
   const audioCertaResposta = useRef(null)
   const audioErradaResposta = useRef(null)
   const endTimer = useRef(null)
@@ -33,7 +35,7 @@ export default function Home() {
   const palmas = useRef(null)
   const pergunta = useRef(null)
 
-  const [enunciado, setEnunciado] = useState(32)
+  const [enunciado, setEnunciado] = useState(0)
   const perguntaAtual = questions[enunciado]
   const [selected, setSelected] = useState(false)
   const [indice, setIndice] = useState("")
@@ -48,6 +50,8 @@ export default function Home() {
   const [start, setStart] = useState(false)
   const [name, setName] = useState("")
   const [win, setWin] = useState(false)
+  const [close, setClose] = useState(true)
+  const [showRanking, setShowRanking] = useState(true)
 
   const [showCredits, setShowCredits] = useState(true);
   const [showPresentation, setShowPresentation] = useState(false);
@@ -69,8 +73,10 @@ export default function Home() {
   }
 
 
-  function startGame(name) {
-    setName(name)
+  function startGame() {
+    if (showRanking == true) {
+      setShowRanking(false)
+    }
     setStart(true)
     if (enunciado == 0) {
       setEnunciado(1)
@@ -167,6 +173,10 @@ export default function Home() {
   }
 
   function restart() {
+    salvarRanking()
+    if (showRanking == false) {
+      setShowRanking(true)
+    }
     if(win == true){
       setWin(false)
     }
@@ -195,6 +205,26 @@ export default function Home() {
     palmas.current.play()
   }
 
+  function onClose() {
+    close ? setClose(false) : setClose(true)
+  }
+
+  async function salvarRanking() {
+    const rankingData = {
+      name: name,
+      money: dinheiro 
+    }
+
+    const res = await fetch('/api/save-ranking', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(rankingData)
+    })
+
+    const data = await res.json()
+    console.log(data.message)
+  }
+
   useEffect(() => {
     if (aceitou && questionAudio.current && enunciado >= 1 && enunciado <=32) {
       setTimeout(() => {
@@ -214,6 +244,13 @@ export default function Home() {
 
   return (
     <>
+    {showRanking && 
+    <Ranking
+     ranking={ranking}
+     onClose={onClose}
+     close={close}
+     />
+    }
       {aceitou && (
         <>
           {showCredits && (
@@ -233,7 +270,7 @@ export default function Home() {
 
 
       <div className={`main ${start ? "hideInicio" : "Box"}`}>
-        <Inicio startGame={() => { startGame(); setAceitou(true); }} videoIntro={videoIntro} />
+        <Inicio startGame={() => { startGame(); setAceitou(true); }} videoIntro={videoIntro} setName={setName} />
       </div>
       <main id="main">
         <div className={blur ? "blurBack containner" : "containner"}>

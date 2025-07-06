@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 
 import styles from './page.css'
 
-export default function Inicio({startGame, videoIntro}) {
+export default function Inicio({startGame, videoIntro, setName}) {
 
-
-  const nome = ""
 
   return (
     <div className='Box'>
@@ -14,7 +12,7 @@ export default function Inicio({startGame, videoIntro}) {
         <div className="inicio">
           <div id="Logo"></div>
           <div id="Entrada">
-            <form action={() => startGame(nome)}>
+            <form action={() => startGame()}>
               <div className="nome">
                 <input
                   type="text"
@@ -22,6 +20,7 @@ export default function Inicio({startGame, videoIntro}) {
                   id="nomeInput"
                   required
                   minLength="3"
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="começar">
