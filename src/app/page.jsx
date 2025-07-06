@@ -27,6 +27,7 @@ export default function Home() {
   const startAudio = useRef(null)
   const introAudio = useRef(null)
   const videoIntro = useRef(null)
+  const ajudaAudio = useRef(null)
 
   const [enunciado, setEnunciado] = useState(0)
   const perguntaAtual = questions[enunciado]
@@ -66,7 +67,7 @@ export default function Home() {
   function startGame(name) {
     setName(name)
     setStart(true)
-    if(enunciado == 0) {
+    if (enunciado == 0) {
       setEnunciado(1)
     }
     introAudio.current.pause()
@@ -76,18 +77,23 @@ export default function Home() {
 
   function eliminarResposta() {
     setClickBtnHelp(true)
-    setAjuda(ajuda - 1)
-    const divs = document.querySelectorAll('.respostaBox')
-    const alternativasIncorretas = perguntaAtual.alternativas.filter(alt => alt !== perguntaAtual.resposta)
 
-    const embaralhadas = alternativasIncorretas.sort(() => Math.random() - 0.5).slice(0, 2)
+    if (ajuda > 0) {
+      setAjuda(ajuda - 1)
+      const divs = document.querySelectorAll('.respostaBox')
+      const alternativasIncorretas = perguntaAtual.alternativas.filter(alt => alt !== perguntaAtual.resposta)
 
-    for (const div of divs) {
-      const p = div.querySelector('p')
-      if (p && embaralhadas.includes(p.textContent.trim())) {
-        let box = div.querySelector('.resposta')
-        box.classList.add("elimined");
+      const embaralhadas = alternativasIncorretas.sort(() => Math.random() - 0.5).slice(0, 2)
+
+      for (const div of divs) {
+        const p = div.querySelector('p')
+        if (p && embaralhadas.includes(p.textContent.trim())) {
+          let box = div.querySelector('.resposta')
+          box.classList.add("elimined");
+        }
       }
+    }else {
+      ajudaAudio.current.play()
     }
   }
 
@@ -107,11 +113,8 @@ export default function Home() {
   }
 
   function endTime() {
-    if (aceitou) {
-
       endTimer.current.play()
       setVisible(true)
-    }
   }
 
   function verificarResposta(indice) {
@@ -160,19 +163,21 @@ export default function Home() {
     startIntro()
     startVideo()
     const radio = document.querySelector('input[type="radio"]:checked');
-      if (radio) {
-        radio.checked = false;
-      }
-      if (enunciado > 0) {
-        setEnunciado(0)
-      }
-      setTime(30)
-      setDinheiro(0)
-      setStart(false)
+    if (radio) {
+      radio.checked = false;
+    }
+    if (enunciado > 0) {
+      setEnunciado(0)
+    }
+    setTime(30)
+    setDinheiro(0)
+    setAjuda(3)
+    setClickBtnHelp(false)
+    setStart(false)
   }
 
   useEffect(() => {
-    if (aceitou && questionAudio.current && enunciado>=1) {
+    if (aceitou && questionAudio.current && enunciado >= 1) {
       setTimeout(() => {
         questionAudio.current.play()
       }, 1300)
@@ -183,7 +188,7 @@ export default function Home() {
   useEffect(() => {
     if (blur == false) {
       setBlur(true)
-    }else {
+    } else {
       setBlur(false)
     }
   }, [visible])
@@ -219,6 +224,7 @@ export default function Home() {
           <audio ref={endTimer} id="endTime" src="audios/endTime.mp3"></audio>
           <audio ref={certeza} id="certeza" src="audios/certeza.mp3"></audio>
           <audio ref={startAudio} id="startaudio" src="audios/start.mp3"></audio>
+          <audio ref={ajudaAudio} id="ajudaaudio" src="audios/ajuda.wav"></audio>
 
           {/*audios das questões */}
           <audio ref={questionAudio} id="questionAudio" src={perguntaAtual.audio}></audio>
@@ -247,6 +253,7 @@ export default function Home() {
               <Help
                 clickBtn={clickBtnHelp}
                 onClick={eliminarResposta}
+                ajuda={ajuda}
               />
             </div>
           </div>
@@ -265,9 +272,9 @@ export default function Home() {
         </div>
 
         <div className={visible ? 'loseBoxMain' : 'hide'}>
-          <Lose 
-          money={dinheiro} 
-          restart={restart}
+          <Lose
+            money={dinheiro}
+            restart={restart}
           />
         </div>
         <div className={!aceitou ? "termsBoxMain" : "hide"}>

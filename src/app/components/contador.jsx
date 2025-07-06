@@ -15,22 +15,23 @@ export default function Contador({ time, setTime, endTime }) {
             endTime()
             return
         }
-         
+        
         const timer = setTimeout(() => {
             if (time > 0) {
                 setTime(time - 1);
                 console.log(time);
-    
+                
                 if (time <= 20) {
                     setVisivel(true)
-                    play ? tempoAudio.current.play() : null
+                    play ? tempoAudio.current.play() : console.log("aqui")
                     setPlay(false)
                 }
                 else {
+                    setPlay(true)
                     setVisivel(false)
                 }
             }
-        }, 100000000)
+        }, 1000)
 
         return() => clearTimeout(timer)
 

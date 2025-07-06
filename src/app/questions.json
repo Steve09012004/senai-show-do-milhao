@@ -80,24 +80,28 @@
     },
     {
       "enunciado": "Qual é o líquido essencial para a vida?",
+      "audio": "audios/questions/011.mp3",
       "resposta": "Água",
       "dificuldade": "fácil",
       "alternativas": ["Leite", "Água", "Suco", "Óleo"]
     },
     {
       "enunciado": "Em que estação do ano as folhas caem?",
+      "audio": "audios/questions/012.mp3",
       "resposta": "Outono",
       "dificuldade": "fácil",
       "alternativas": ["Primavera", "Verão", "Outono", "Inverno"]
     },
     {
       "enunciado": "Qual animal produz mel?",
+      "audio": "audios/questions/013.mp3",
       "resposta": "Abelha",
       "dificuldade": "fácil",
       "alternativas": ["Formiga", "Abelha", "Borboleta", "Aranha"]
     },
     {
       "enunciado": "Qual a cor da bandeira do Brasil?",
+      "audio": "audios/questions/014.mp3",
       "resposta": "Verde, amarelo, azul e branco",
       "dificuldade": "fácil",
       "alternativas": [
@@ -109,108 +113,126 @@
     },
     {
       "enunciado": "Qual é o som que o cachorro faz?",
+      "audio": "audios/questions/015.mp3",
       "resposta": "Latido",
       "dificuldade": "fácil",
       "alternativas": ["Miau", "Latido", "Rugido", "Pio"]
     },
     {
       "enunciado": "Qual é a profissão de quem ensina na escola?",
+      "audio": "audios/questions/016.mp3",
       "resposta": "Professor",
       "dificuldade": "fácil",
       "alternativas": ["Médico", "Engenheiro", "Professor", "Advogado"]
     },
     {
       "enunciado": "Qual o nome do famoso cientista que desenvolveu a teoria da relatividade?",
+      "audio": "audios/questions/017.mp3",
       "resposta": "Albert Einstein",
       "dificuldade": "fácil",
       "alternativas": ["Isaac Newton", "Albert Einstein", "Galileu Galilei", "Nikola Tesla"]
     },
     {
       "enunciado": "Qual é a fruta que é amarela por fora e branca por dentro?",
+      "audio": "audios/questions/018.mp3",
       "resposta": "Banana",
       "dificuldade": "fácil",
       "alternativas": ["Maçã", "Banana", "Laranja", "Uva"]
     },
     {
       "enunciado": "Qual é o número depois do 9?",
+      "audio": "audios/questions/019.mp3",
       "resposta": "10",
       "dificuldade": "fácil",
       "alternativas": ["8", "9", "10", "11"]
     },
     {
       "enunciado": "Qual o nome do personagem que usa um chapéu verde e ajuda o Mario nos jogos?",
+      "audio": "audios/questions/020.mp3",
       "resposta": "Luigi",
       "dificuldade": "fácil",
       "alternativas": ["Mario", "Luigi", "Bowser", "Yoshi"]
     },
     {
       "enunciado": "Qual é o principal órgão do sistema circulatório?",
+      "audio": "audios/questions/021.mp3",
       "resposta": "Coração",
       "dificuldade": "fácil",
       "alternativas": ["Pulmão", "Fígado", "Coração", "Rim"]
     },
     {
       "enunciado": "Qual é o idioma oficial do Brasil?",
+      "audio": "audios/questions/022.mp3",
       "resposta": "Português",
       "dificuldade": "fácil",
       "alternativas": ["Inglês", "Espanhol", "Português", "Francês"]
     },
     {
       "enunciado": "Qual é a bebida feita a partir da uva?",
+      "audio": "audios/questions/023.mp3",
       "resposta": "Vinho",
       "dificuldade": "fácil",
       "alternativas": ["Suco", "Vinho", "Água", "Cerveja"]
     },
     {
       "enunciado": "Qual é a estação mais quente do ano?",
+      "audio": "audios/questions/024.mp3",
       "resposta": "Verão",
       "dificuldade": "fácil",
       "alternativas": ["Primavera", "Outono", "Inverno", "Verão"]
     },
     {
       "enunciado": "Qual animal é conhecido por sua longa tromba?",
+      "audio": "audios/questions/025.mp3",
       "resposta": "Elefante",
       "dificuldade": "fácil",
       "alternativas": ["Elefante", "Girafa", "Cavalo", "Rinoceronte"]
     },
     {
       "enunciado": "Qual é o nome do esporte jogado com uma bola oval?",
+      "audio": "audios/questions/026.mp3",
       "resposta": "Rugby",
       "dificuldade": "fácil",
       "alternativas": ["Futebol", "Basquete", "Rugby", "Tênis"]
     },
     {
       "enunciado": "Qual o nome do famoso mouse criado pela Disney?",
+      "audio": "audios/questions/027.mp3",
       "resposta": "Mickey Mouse",
       "dificuldade": "fácil",
       "alternativas": ["Mickey Mouse", "Donald Duck", "Goofy", "Pluto"]
     },
     {
       "enunciado": "Qual é o número de patas de uma aranha?",
+      "audio": "audios/questions/028.mp3",
       "resposta": "8",
       "dificuldade": "fácil",
       "alternativas": ["6", "8", "10", "12"]
     },
     {
       "enunciado": "Quantos continentes existem no mundo?",
+      "audio": "audios/questions/029.mp3",
       "resposta": "7",
       "dificuldade": "fácil",
       "alternativas": ["5", "6", "7", "8"]
     },
     {
       "enunciado": "Qual é o nome do gás que respiramos para viver?",
+      "audio": "audios/questions/030.mp3",
       "resposta": "Oxigênio",
       "dificuldade": "fácil",
       "alternativas": ["Nitrogênio", "Oxigênio", "Dióxido de carbono", "Hidrogênio"]
     },
     {
       "enunciado": "Qual é o nome do personagem principal do filme 'Toy Story' que é um cowboy?",
+      "audio": "audios/questions/031.mp3",
       "resposta": "Woody",
       "dificuldade": "fácil",
       "alternativas": ["Buzz Lightyear", "Woody", "Jessie", "Rex"]
     },
     {
       "enunciado": "Qual é a cor do fogo?",
+      "audio": "audios/questions/032.mp3",
       "resposta": "Laranja",
       "dificuldade": "fácil",
       "alternativas": ["Azul", "Verde", "Laranja", "Preto"]
