@@ -8,6 +8,7 @@ import Respostas from "./components/respostas";
 import Contador from "./components/contador";
 import Money from "./components/dinheiro";
 import Lose from "./components/lose";
+import Win from "./components/win";
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Inicio from "./components/inicio";
@@ -28,8 +29,11 @@ export default function Home() {
   const introAudio = useRef(null)
   const videoIntro = useRef(null)
   const ajudaAudio = useRef(null)
+  const parabens = useRef(null)
+  const palmas = useRef(null)
+  const pergunta = useRef(null)
 
-  const [enunciado, setEnunciado] = useState(0)
+  const [enunciado, setEnunciado] = useState(32)
   const perguntaAtual = questions[enunciado]
   const [selected, setSelected] = useState(false)
   const [indice, setIndice] = useState("")
@@ -43,6 +47,7 @@ export default function Home() {
   const [aceitou, setAceitou] = useState(false);
   const [start, setStart] = useState(false)
   const [name, setName] = useState("")
+  const [win, setWin] = useState(false)
 
   const [showCredits, setShowCredits] = useState(true);
   const [showPresentation, setShowPresentation] = useState(false);
@@ -120,7 +125,8 @@ export default function Home() {
   function verificarResposta(indice) {
 
     if (perguntaAtual.resposta == perguntaAtual.alternativas[indice]) {
-      setEnunciado(enunciado + 1)
+      
+      enunciado >=32 ? winGame() : setEnunciado(enunciado + 1)
       setTimeout(() => {
         audioCertaResposta.current.play()
       }, 250)
@@ -129,9 +135,11 @@ export default function Home() {
       setTime(30);
 
       if (dinheiro === 0) {
-        setDinheiro(500)
-      } else {
-        setDinheiro(dinheiro * 2)
+        setDinheiro(30000)
+      } else if (enunciado == 32 && dinheiro<1000000){
+        setDinheiro(dinheiro + (1000000-dinheiro))
+      }else {
+        setDinheiro(dinheiro + 30000)
       }
       const divs = document.querySelectorAll('.respostaBox')
       const radio = document.querySelector('input[type="radio"]:checked');
@@ -159,6 +167,9 @@ export default function Home() {
   }
 
   function restart() {
+    if(win == true){
+      setWin(false)
+    }
     setVisible(false)
     startIntro()
     startVideo()
@@ -176,8 +187,16 @@ export default function Home() {
     setStart(false)
   }
 
+  function winGame() {
+    setEnunciado(enunciado+1)
+    setStart(false)
+    setWin(true)
+    parabens.current.play()
+    palmas.current.play()
+  }
+
   useEffect(() => {
-    if (aceitou && questionAudio.current && enunciado >= 1) {
+    if (aceitou && questionAudio.current && enunciado >= 1 && enunciado <=32) {
       setTimeout(() => {
         questionAudio.current.play()
       }, 1300)
@@ -225,6 +244,9 @@ export default function Home() {
           <audio ref={certeza} id="certeza" src="audios/certeza.mp3"></audio>
           <audio ref={startAudio} id="startaudio" src="audios/start.mp3"></audio>
           <audio ref={ajudaAudio} id="ajudaaudio" src="audios/ajuda.wav"></audio>
+          <audio ref={parabens} id="parabens" src="audios/parabens.mp3"></audio>
+          <audio ref={palmas} id="palmas" src="audios/palmas.mp3"></audio>
+          <audio ref={pergunta} id="palmas" src="audios/pergunta.mp3"></audio>
 
           {/*audios das questões */}
           <audio ref={questionAudio} id="questionAudio" src={perguntaAtual.audio}></audio>
@@ -273,6 +295,12 @@ export default function Home() {
 
         <div className={visible ? 'loseBoxMain' : 'hide'}>
           <Lose
+            money={dinheiro}
+            restart={restart}
+          />
+        </div>
+        <div className={win ? 'loseBoxMain' : 'hide'}>
+          <Win
             money={dinheiro}
             restart={restart}
           />

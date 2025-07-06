@@ -236,5 +236,12 @@
       "resposta": "Laranja",
       "dificuldade": "fácil",
       "alternativas": ["Azul", "Verde", "Laranja", "Preto"]
+    },
+    {
+      "enunciado": "",
+      "audio": null,
+      "resposta": "",
+      "dificuldade": "",
+      "alternativas": ["", "", "", ""]
     }
   ]
