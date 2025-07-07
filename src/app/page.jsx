@@ -21,7 +21,10 @@ import Ranking from "./components/ranking";
 
 export default function Home() {
   const questions = require('./questions.json')
-  const ranking = require('../../data/ranking.json')
+  const rankingA = require('../../data/rankingA.json')
+  const rankingB = require('../../data/rankingB.json')
+  const rankingC = require('../../data/rankingC.json')
+  const [ranking, setRanking] = useState(rankingA)
   const audioCertaResposta = useRef(null)
   const audioErradaResposta = useRef(null)
   const endTimer = useRef(null)
@@ -44,6 +47,7 @@ export default function Home() {
   const [clickBtnConfirm, setClickBtnConfirm] = useState(true)
   const [dinheiro, setDinheiro] = useState(0)
   const [time, setTime] = useState(30)
+  const [mSeconds, setMSeconds] = useState(1000)
   const [visible, setVisible] = useState(false)
   const [blur, setBlur] = useState(true)
   const [aceitou, setAceitou] = useState(false);
@@ -52,6 +56,7 @@ export default function Home() {
   const [win, setWin] = useState(false)
   const [close, setClose] = useState(true)
   const [showRanking, setShowRanking] = useState(true)
+  const [dificult, setDificult] = useState("a")
 
   const [showCredits, setShowCredits] = useState(true);
   const [showPresentation, setShowPresentation] = useState(false);
@@ -103,7 +108,7 @@ export default function Home() {
           box.classList.add("elimined");
         }
       }
-    }else {
+    } else {
       ajudaAudio.current.play()
     }
   }
@@ -124,15 +129,15 @@ export default function Home() {
   }
 
   function endTime() {
-      endTimer.current.play()
-      setVisible(true)
+    endTimer.current.play()
+    setVisible(true)
   }
 
   function verificarResposta(indice) {
 
     if (perguntaAtual.resposta == perguntaAtual.alternativas[indice]) {
-      
-      enunciado >=32 ? winGame() : setEnunciado(enunciado + 1)
+
+      enunciado >= 32 ? winGame() : setEnunciado(enunciado + 1)
       setTimeout(() => {
         audioCertaResposta.current.play()
       }, 250)
@@ -142,15 +147,15 @@ export default function Home() {
 
       if (dinheiro === 0) {
         setDinheiro(30000)
-      } else if (enunciado == 32 && dinheiro<1000000){
-        setDinheiro(dinheiro + (1000000-dinheiro))
-      }else {
+      } else if (enunciado == 32 && dinheiro < 1000000) {
+        setDinheiro(dinheiro + (1000000 - dinheiro))
+      } else {
         setDinheiro(dinheiro + 30000)
       }
       const divs = document.querySelectorAll('.respostaBox')
-      const radio = document.querySelector('input[type="radio"]:checked');
-      if (radio) {
-        radio.checked = false;
+      const marcado = document.querySelector('input[name="response"]:checked');
+      if (marcado) {
+        marcado.checked = false;
       }
       for (const div of divs) {
         let box = div.querySelector('.resposta')
@@ -177,15 +182,15 @@ export default function Home() {
     if (showRanking == false) {
       setShowRanking(true)
     }
-    if(win == true){
+    if (win == true) {
       setWin(false)
     }
     setVisible(false)
     startIntro()
     startVideo()
-    const radio = document.querySelector('input[type="radio"]:checked');
-    if (radio) {
-      radio.checked = false;
+    const marcado = document.querySelector('input[name="response"]:checked');
+    if (marcado) {
+      marcado.checked = false;
     }
     if (enunciado > 0) {
       setEnunciado(0)
@@ -198,7 +203,7 @@ export default function Home() {
   }
 
   function winGame() {
-    setEnunciado(enunciado+1)
+    setEnunciado(enunciado + 1)
     setStart(false)
     setWin(true)
     parabens.current.play()
@@ -212,12 +217,13 @@ export default function Home() {
   async function salvarRanking() {
     const rankingData = {
       name: name,
-      money: dinheiro 
+      money: dinheiro,
+      dificult: dificult
     }
 
     const res = await fetch('/api/save-ranking', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(rankingData)
     })
 
@@ -226,7 +232,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (aceitou && questionAudio.current && enunciado >= 1 && enunciado <=32) {
+    if (aceitou && questionAudio.current && enunciado >= 1 && enunciado <= 32) {
       setTimeout(() => {
         questionAudio.current.play()
       }, 1300)
@@ -244,13 +250,17 @@ export default function Home() {
 
   return (
     <>
-    {showRanking && 
-    <Ranking
-     ranking={ranking}
-     onClose={onClose}
-     close={close}
-     />
-    }
+      {showRanking &&
+        <Ranking
+          ranking={ranking}
+          onClose={onClose}
+          close={close}
+          setRanking={setRanking}
+          rankingA={rankingA} 
+          rankingB={rankingB} 
+          rankingC={rankingC}
+        />
+      }
       {aceitou && (
         <>
           {showCredits && (
@@ -270,7 +280,7 @@ export default function Home() {
 
 
       <div className={`main ${start ? "hideInicio" : "Box"}`}>
-        <Inicio startGame={() => { startGame(); setAceitou(true); }} videoIntro={videoIntro} setName={setName} />
+        <Inicio startGame={() => { startGame(); setAceitou(true); }} videoIntro={videoIntro} setName={setName} setMSeconds={setMSeconds} setDificult={setDificult}/>
       </div>
       <main id="main">
         <div className={blur ? "blurBack containner" : "containner"}>
@@ -322,7 +332,7 @@ export default function Home() {
                 {!start ? (
                   <></>
                 ) : (
-                  <Contador time={time} setTime={setTime} endTime={endTime} />
+                  <Contador time={time} setTime={setTime} endTime={endTime} mSeconds={mSeconds} />
                 )}
               </div>
               <Money money={dinheiro} />

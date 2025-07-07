@@ -15,7 +15,22 @@ export async function POST(req) {
       });
     }
 
-    const filePath = path.join(process.cwd(), 'data', 'ranking.json');
+    let filePath;
+
+    if (body.dificult === "a") {
+      filePath = path.join(process.cwd(), 'data', 'rankingA.json');
+    } else if (body.dificult === "b") {
+      filePath = path.join(process.cwd(), 'data', 'rankingB.json');
+    } else if (body.dificult === "c") {
+      filePath = path.join(process.cwd(), 'data', 'rankingC.json');
+    } else {
+      // fallback opcional
+      return new Response(JSON.stringify({ error: 'Dificuldade inválida' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
 
     if (!fs.existsSync(filePath)) {
       fs.writeFileSync(filePath, '[]');

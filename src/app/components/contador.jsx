@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from "react"
 
-export default function Contador({ time, setTime, endTime }) {
+export default function Contador({ time, setTime, endTime, mSeconds }) {
     const tempoAudio = useRef(null)
     const [play, setPlay] = useState(true)
 
@@ -31,7 +31,7 @@ export default function Contador({ time, setTime, endTime }) {
                     setVisivel(false)
                 }
             }
-        }, 1000)
+        }, mSeconds)
 
         return() => clearTimeout(timer)
 
