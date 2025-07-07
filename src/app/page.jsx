@@ -159,7 +159,6 @@ export default function Home() {
       }
       for (const div of divs) {
         let box = div.querySelector('.resposta')
-        box.classList.add("default");
         box.classList.remove("elimined")
         setClickBtnHelp(false)
         setClickBtnConfirm(true)
