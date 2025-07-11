@@ -31,7 +31,7 @@ export default function Contador({ time, setTime, endTime, mSeconds }) {
                     setVisivel(false)
                 }
             }
-        }, 10000000)
+        }, mSeconds)
 
         return() => clearTimeout(timer)
 
